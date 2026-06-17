@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-"""Build the eSIM Data Processing Agreement (Vietnamese), modeled on the WinX DPA core,
-referencing the GAPIT eSIM Agent Contract (HĐ Đại lý số …/2026/HĐĐL/GPT)."""
+"""Build the eSIM Data Processing Agreement (Vietnamese), referencing the GAPIT
+eSIM Agent Contract (HĐ Đại lý phân phối SIM/eSIM du lịch số …/2026/HĐĐL/GPT).
+Cleaned of any WinX-specific and zVAS-product references."""
 import docx
 from docx.shared import Pt, RGBColor, Cm
 from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_COLOR_INDEX
@@ -45,9 +46,9 @@ H('(Áp dụng cho dịch vụ SIM/eSIM du lịch phân phối qua Đại lý)',
 P('Số: ……/2026/DPA/GPT', just=False).alignment = WD_ALIGN_PARAGRAPH.CENTER
 
 # ---------- Caveat note (ties to reviewer comment 3) ----------
-NOTE('LƯU Ý PHÁP LÝ (cần Bộ phận Pháp chế xác nhận trước khi ký): Văn bản này được dự thảo trên cơ sở "lõi" của '
-     'Thỏa thuận Xử lý Dữ liệu Cá nhân (DPA) GAPIT–WinX và gắn với Hợp đồng Đại lý phân phối SIM/eSIM du lịch. '
-     'Việc xác định vai trò Bên Kiểm soát/Bên Xử lý phụ thuộc vào luồng dữ liệu thực tế của mô hình B2B (theo góp ý của maiht tại Điều 8 Hợp đồng Đại lý). '
+NOTE('LƯU Ý PHÁP LÝ (cần Bộ phận Pháp chế xác nhận trước khi ký): Thỏa thuận này là một phần không tách rời của '
+     'Hợp đồng Đại lý phân phối SIM/eSIM du lịch số ……/2026/HĐĐL/GPT và được ký kết theo Điều 8.4 của Hợp đồng đó. '
+     'Việc xác định vai trò Bên Kiểm soát/Bên Xử lý phụ thuộc vào luồng dữ liệu thực tế của mô hình đại lý B2B. '
      'Dự thảo này mặc định: Đại lý (Bên B) là BÊN KIỂM SOÁT DỮ LIỆU (thu thập, có quan hệ trực tiếp với khách hàng cuối, bán nhân danh chính mình theo Điều 1.2 Hợp đồng Đại lý) và GAPIT (Bên A) là BÊN XỬ LÝ DỮ LIỆU (xử lý đơn hàng trên hệ thống CMS để cấp eSIM, gửi mã QR, xuất hóa đơn, hỗ trợ kỹ thuật). '
      'Riêng đối với (i) việc xuất hóa đơn GTGT nhân danh GAPIT và (ii) việc chuyển dữ liệu cho nhà cung cấp eSIM ở nước ngoài (Consortio), GAPIT có thể đóng vai trò Bên Kiểm soát độc lập — trường hợp này cân nhắc dùng "thỏa thuận chia sẻ dữ liệu giữa các bên kiểm soát độc lập" thay cho mô hình kiểm soát–xử lý.')
 
@@ -330,8 +331,8 @@ NOTE('Việc chuyển dữ liệu cá nhân cho nhà cung cấp ở nước ngo�
      'Liệu chấp thuận theo Điều 4.')
 
 H('7. Biện pháp bảo vệ dữ liệu (tối thiểu)', size=12)
-P('Các biện pháp dưới đây được áp dụng nhất quán với tiêu chuẩn an toàn thông tin mà Bên Xử Lý Dữ Liệu đã thiết lập cho '
-  'GAPIT Service Platform / Zalo VAS CMS (zVAS):', italic=True)
+P('Các biện pháp dưới đây được Bên Xử Lý Dữ Liệu áp dụng đối với hệ thống CMS và hạ tầng phục vụ dịch vụ SIM/eSIM '
+  'du lịch theo Hợp Đồng Cơ Sở:', italic=True)
 for s in [
  'Mã hóa dữ liệu khi truyền tải bằng TLS 1.3 và mã hóa dữ liệu nhạy cảm khi lưu trữ bằng AES-256; tường lửa; phần mềm '
  'phòng chống mã độc;',
