@@ -71,11 +71,11 @@ cols=[
  (ZALO,'NOW','Q2–Q3 / 2026','Go-live & Validate','Outcome: vận hành B2B ổn định · dòng tiền trả trước · khởi động mạng đại lý',
   ['Hoàn thiện zVAS CMS: catalog, báo giá (prorate + VAT), hóa đơn, kích hoạt',
    'Code pool & cảnh báo hạn kích hoạt 6/3/2/1 tháng (trong 12 tháng từ nhập kho)',
-   'Go-live KHDN + ký HĐ Đại lý cấp II; DPA theo mẫu PDPA(VNI)',
+   'Go-live KHDN + ký HĐ Đại lý của GAPIT; DPA theo mẫu PDPA(VNI)',
    'Chuẩn hóa cơ chế trả trước + bảng giá & chiết khấu theo bậc',
    'Đào tạo CSKH cấp 1; quy trình đổi Mã code lỗi (≤ 24h)']),
  (TEAL,'NEXT','Q4/2026 – Q1/2027','Scale & Enable','Outcome: nhân rộng kênh đại lý · tăng MRR · giảm thao tác thủ công',
-  ['Mở rộng Đại lý cấp II: RACI, onboarding, KPI doanh số tối thiểu',
+  ['Mở rộng mạng Đại lý của GAPIT: RACI, onboarding, KPI doanh số tối thiểu',
    'Portal Đại lý / Affiliate; báo cáo MRR & tồn kho Mã code',
    'Tự động đối soát CSV zbox.vn; auto-select code sắp hết hạn',
    'Thêm bundle (zBusiness + zCloud + zStyle)',
@@ -99,59 +99,46 @@ for (clr,hz,tf_,tag,oc,items),x in zip(cols,xs):
 
 # ============================================================ SLIDE 2: MARGINS
 s2=prs.slides.add_slide(blank)
-frame(s2,'BIÊN LỢI NHUẬN · 2/3','Biên Lợi Nhuận — GAPIT & Đại Lý Cấp II',
- [([('Tổng biên kênh ≈ 20% (chênh giá bán lẻ Zalo vs giá VNG cấp cho GAPIT) · GAPIT giữ = 20% − chiết khấu cấp cho Đại lý cấp II.',GRAY,False,BODY)],11,0)])
-# Table
-tx,ty=0.45,1.78; colw=[2.05,1.85,1.7,1.95,1.35]; rh=0.5
-hdr=['Bậc SL (code/tháng)','CK Đại lý cấp II','Biên Đại lý II','Biên GAPIT giữ','Tổng biên kênh']
-rows=[['50 – 99','5%','5%','15%','20%'],['100 – 299','8%','8%','12%','20%'],['≥ 300','10%','10%','10%','20%']]
-cx=tx
-for j,h in enumerate(hdr):
-    rect(s2,cx,ty,colw[j],rh,BLUE2); txt(s2,cx,ty,colw[j],rh,[([(h,WHITE,True,BODY)],10,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE); cx+=colw[j]
-for i,row in enumerate(rows):
-    cx=tx; yy=ty+rh*(i+1)
-    for j,val in enumerate(row):
-        fill=WHITE if i%2==0 else C('F4F7FB')
-        if j==3: fill=C('FFF1E6')
-        rect(s2,cx,yy,colw[j],rh,fill,line=LN,lw=0.5)
-        col=ORANGE if j==3 else (NAVY if j==0 else GRAY2); bold=(j in (0,3))
-        txt(s2,cx,yy,colw[j],rh,[([(val,col,bold,BODY)],11,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE); cx+=colw[j]
-tw=sum(colw)
-# Stacked bars
-txt(s2,0.45,3.66,tw,0.26,[([('Cấu trúc biên trên 1 đơn vị (× 100% giá bán lẻ Zalo)',GRAY,True,BODY)],10,0)])
-bars=[('Bậc 50–99',80,15,5),('Bậc 100–299',80,12,8),('Bậc ≥300',80,10,10)]
-bx=0.45; barw=tw-1.4; by=4.0
-for i,(lbl,vng,gap,ag) in enumerate(bars):
-    yy=by+i*0.52
-    txt(s2,bx,yy,1.3,0.42,[([(lbl,NAVY,True,BODY)],9.5,0)],anchor=MSO_ANCHOR.MIDDLE)
-    x0=bx+1.4
-    segs=[('Giá VNG '+str(vng)+'%',vng,SLATE,WHITE),('GAPIT '+str(gap)+'%',gap,ORANGE,WHITE),('ĐL '+str(ag)+'%',ag,GREEN,WHITE)]
-    cxx=x0
-    for name,pct,fc,tc in segs:
-        wseg=barw*pct/100.0
-        rect(s2,cxx,yy,wseg,0.42,fc,rounded=False)
-        txt(s2,cxx,yy,wseg,0.42,[([(name,tc,True,BODY)],8.5,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-        cxx+=wseg
-# Right: examples
-exx=10.0
-rect(s2,exx,1.78,2.9,0.4,NAVY,rounded=True)
-txt(s2,exx,1.78,2.9,0.4,[([('VÍ DỤ — zBusiness 12 tháng',WHITE,True,BODY)],10,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
-txt(s2,exx,2.26,2.9,0.5,[([('Zalo retail 1.990.000đ',NAVY,True,BODY)],10.5,0),
-   ([('VNG → GAPIT 1.592.000đ (−20%)',GRAY2,False,BODY)],9.5,1)])
-def excard(y,clr,tier,buy,gp,gpp,ag,agp):
-    rect(s2,exx,y,2.9,1.18,WHITE,line=clr,rounded=True,lw=1.25); rect(s2,exx,y,0.10,1.18,clr)
-    txt(s2,exx+0.2,y+0.06,2.6,0.26,[([(tier,clr,True,BODY)],10,0)])
-    txt(s2,exx+0.2,y+0.34,2.6,0.8,[
-       ([('ĐL mua: ',GRAY2,False,BODY),(buy,NAVY,True,BODY)],9.3,0),
-       ([('Biên GAPIT: ',GRAY2,False,BODY),(gp+' ('+gpp+')',ORANGE,True,BODY)],9.3,2),
-       ([('Biên Đại lý: ',GRAY2,False,BODY),(ag+' ('+agp+')',GREEN,True,BODY)],9.3,2)])
-excard(2.86,GREEN,'Bậc ≥300 · CK 10%','1.791.000đ','199.000đ','10%','199.000đ','10%')
-excard(4.18,ORANGE,'Bậc 50–99 · CK 5%','1.890.500đ','298.500đ','15%','99.500đ','5%')
-# note
-rect(s2,0.45,5.95,12.45,0.95,C('FFF6E9'),line=ORANGE,rounded=True)
-txt(s2,0.65,6.02,12.1,0.85,[
- ([('Lưu ý: ',ORANGE,True,BODY),('“Tổng biên kênh ≈20%” suy ra từ giá zBusiness 12 tháng tại Phụ lục HĐ VNG–GAPIT; các gói khác (zCloud/zStyle…) theo Phụ lục tương ứng — cập nhật % thực tế khi có giá từng gói.',GRAY2,False,BODY)],9.5,0),
- ([('Chiết khấu Đại lý cấp II tính trên Giá bán lẻ trực tiếp của Zalo (giá sàn công khai). Mã code đã mua: không hoàn/đổi (chính sách VNG). Đại lý không được bán công khai dưới giá sàn.',GRAY2,False,BODY)],9.5,3)])
+frame(s2,'BIÊN LỢI NHUẬN · 2/3','Biên Lợi Nhuận — GAPIT & Đại lý của GAPIT',
+ [([('Biên GAPIT = tuần tự trừ:  Chiết khấu GAPIT NHẬN từ VNG  −  Chiết khấu GAPIT CẤP cho Đại lý/KHDN.  (Chỉ có GAPIT và Đại lý của GAPIT — không có đại lý cấp II.)',GRAY,False,BODY)],10.5,0)])
+# Hai hộp tham chiếu chiết khấu
+def refbox(x,title,clr,line2):
+    rect(s2,x,1.60,6.10,0.92,WHITE,line=clr,rounded=True,lw=1.25); rect(s2,x,1.60,0.10,0.92,clr)
+    txt(s2,x+0.24,1.65,5.7,0.34,[([(title,clr,True,BODY)],10,0)])
+    txt(s2,x+0.24,2.02,5.7,0.44,[([(line2,NAVY,True,BODY)],12.5,0)])
+refbox(0.45,'①  GAPIT NHẬN từ VNG  (theo SL GAPIT đặt)',BLUE2,'100–299 code: 15%          ·          ≥ 300 code: 20%')
+refbox(6.78,'②  GAPIT CẤP cho Đại lý / KHDN  (theo SL của ĐL/KHDN)',TEAL,'50–99: 5%        ·        100–299: 8%        ·        ≥ 300: 10%')
+# Ma trận biên
+txt(s2,0.45,2.62,12.4,0.24,[([('Biên GAPIT giữ lại  =  ①  −  ②        (mỗi ô:  ',GRAY,True,BODY),('Biên GAPIT',ORANGE,True,BODY),('  /  ',GRAY,True,BODY),('Biên Đại lý/KHDN',GREEN,True,BODY),(' )',GRAY,True,BODY)],10,0)])
+mx=0.45; my=2.90; c0=3.30; cc=2.40; rh=0.60
+rect(s2,mx,my,c0,rh,NAVY); txt(s2,mx,my,c0,rh,[([('GAPIT mua ↓   \\   ĐL/KHDN →',WHITE,True,BODY)],9,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
+heads=['ĐL/KHDN 50–99  (CK 5%)','100–299  (CK 8%)','≥ 300  (CK 10%)']
+for j,h in enumerate(heads):
+    rect(s2,mx+c0+j*cc,my,cc,rh,BLUE2); txt(s2,mx+c0+j*cc,my,cc,rh,[([(h,WHITE,True,BODY)],8.6,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
+matrows=[('≥ 300  (GAPIT −20%)',[('15%','5%'),('12%','8%'),('10%','10%')]),
+         ('100–299  (GAPIT −15%)',[('10%','5%'),('7%','8%'),('5%','10%')])]
+for i,(rl,vals) in enumerate(matrows):
+    yy=my+rh*(i+1)
+    rect(s2,mx,yy,c0,rh,C('EAF0F8'),line=LN,lw=0.5); txt(s2,mx,yy,c0,rh,[([(rl,NAVY,True,BODY)],9.5,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
+    for j,(g,a) in enumerate(vals):
+        rect(s2,mx+c0+j*cc,yy,cc,rh,C('FFF6E9') if i==0 else WHITE,line=LN,lw=0.5)
+        txt(s2,mx+c0+j*cc,yy,cc,rh,[([(g,ORANGE,True,BODY),('  /  ',GRAY,False,BODY),(a,GREEN,True,BODY)],11.5,0)],align=PP_ALIGN.CENTER,anchor=MSO_ANCHOR.MIDDLE)
+# Ví dụ minh họa
+txt(s2,0.45,4.84,12.0,0.22,[([('Ví dụ minh họa — zBusiness 12 tháng · Giá bán lẻ Zalo 1.990.000đ',GRAY,True,BODY)],10,0)])
+def excard(x,clr,head,cost,buy,gp,gpp,ag,agp):
+    rect(s2,x,5.10,4.05,1.32,WHITE,line=clr,rounded=True,lw=1.25); rect(s2,x,5.10,0.10,1.32,clr)
+    txt(s2,x+0.22,5.15,3.75,0.46,[([(head,clr,True,BODY)],9.2,0)])
+    txt(s2,x+0.22,5.62,3.75,0.76,[
+       ([('Giá vốn GAPIT: ',GRAY2,False,BODY),(cost,NAVY,True,BODY),('   ·   ĐL/KHDN mua: ',GRAY2,False,BODY),(buy,NAVY,True,BODY)],8.6,0),
+       ([('Biên GAPIT: ',GRAY2,False,BODY),(gp+' ('+gpp+')',ORANGE,True,BODY)],9.2,2),
+       ([('Biên Đại lý/KHDN: ',GRAY2,False,BODY),(ag+' ('+agp+')',GREEN,True,BODY)],9.2,1)])
+excard(0.45,GREEN,'GAPIT mua ≥300 (−20%)  →  bán ĐL ≥300 (CK 10%)','1.592.000đ','1.791.000đ','199.000đ','10%','199.000đ','10%')
+excard(4.64,ORANGE,'GAPIT mua ≥300 (−20%)  →  bán ĐL 50–99 (CK 5%)','1.592.000đ','1.890.500đ','298.500đ','15%','99.500đ','5%')
+excard(8.83,BLUE2,'GAPIT mua 100–299 (−15%)  →  bán ĐL 100–299 (CK 8%)','1.691.500đ','1.830.800đ','139.300đ','7%','159.200đ','8%')
+# Ghi chú
+rect(s2,0.45,6.55,12.45,0.58,C('FFF6E9'),line=ORANGE,rounded=True)
+txt(s2,0.65,6.59,12.1,0.5,[
+ ([('Lưu ý: ',ORANGE,True,BODY),('Chiết khấu tính trên Giá bán lẻ trực tiếp của Zalo (giá sàn công khai). Tổng biên kênh = chiết khấu GAPIT nhận từ VNG (15–20% theo SL GAPIT đặt); GAPIT giữ = phần còn lại sau khi cấp chiết khấu cho Đại lý/KHDN. GAPIT bán trực tiếp KHDN ở giá sàn → giữ trọn 15–20%. Mã code đã mua: không hoàn/đổi (chính sách VNG); không bán công khai dưới giá sàn. Số ví dụ theo zBusiness 12T — gói khác theo Phụ lục.',GRAY2,False,BODY)],8.7,0)])
 
 # ============================================================ SLIDE 3: ORDER FLOW (swimlane)
 s3=prs.slides.add_slide(blank)
