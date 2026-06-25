@@ -93,4 +93,20 @@ insert_after('Giá cấp cho Đại lý và chiết khấu là điều kiện th
  'Ghi chú thuế: Toàn bộ đơn giá tại Bảng giá Sản phẩm là giá ĐÃ BAO GỒM thuế giá trị gia tăng (GTGT) 10%. '
  'Trường hợp áp dụng đơn giá chưa bao gồm GTGT, phải ghi rõ tại từng dòng tương ứng.')
 
+# 9) 8.3 — viết lại gọn (bỏ ràng buộc số lượng đặt hàng tối thiểu) theo góp ý
+setp('Nguồn cung ứng và ràng buộc số lượng đơn đặt hàng',
+ '8.3. Nguồn cung ứng: Bên A là nhà cung cấp chính thức của Bên B đối với Sản phẩm theo Hợp đồng này.')
+
+# 10) Phụ lục 01 — note chính sách chiết khấu theo năm/doanh thu (thay cho ràng buộc tại 8.3)
+insert_after('Áp dụng cho tất cả sản phẩm/gói cước',
+ 'Chính sách chiết khấu nêu trên áp dụng cho năm đầu tiên của Hợp đồng. Từ năm thứ hai trở đi, nếu Bên B không đạt '
+ 'doanh thu tối thiểu …… VNĐ/năm (hoặc mức sản lượng do Hai Bên thỏa thuận), Bên A có quyền xem xét, điều chỉnh lại '
+ 'tỷ lệ chiết khấu áp dụng cho Bên B.')
+
+# 11) Xóa đoạn 8.3 cũ (cam kết không cạnh tranh, đã gạch ngang) cho gọn
+for _p in list(d.paragraphs):
+    if 'kể từ ngày chấm' in _p.text and 'KHÔNG, trực tiếp hoặc gián tiếp' in _p.text:
+        _p._p.getparent().remove(_p._p); break
+
+
 d.save(OUT); print('SAVED',OUT)
